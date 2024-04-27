@@ -1,0 +1,20 @@
+:root[data-theme="light"] {
+    --background-color: #fff;
+    --main-color: #292D32;
+
+    --theme-switcher-background: url(../images/icons/moon.svg) 30px 30px no-repeat #70748D;
+    --theme-switcher-color: #fff;
+  }
+  
+:root[data-theme="dark"] {
+    --background-color: #343434;
+    --main-color: #fff;
+
+    --theme-switcher-background: url(../images/icons/sun.svg) 30px 30px no-repeat #FFDA55;
+    --theme-switcher-color: #343434;
+}
+
+body {
+    background: var(--background-color);
+    color: var(--main-color);
+}

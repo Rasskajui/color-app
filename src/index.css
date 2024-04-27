@@ -1,3 +1,6 @@
 @import url(./vendor/normalize.css);
 @import url(./vendor/fonts/Golos-Text/golosText.css);
 @import url(./vendor/fonts/Concrete/concrete.css);
+
+@import url(./utils/themeVars.css);
+@import url(./blocks/logo/logo.css);
