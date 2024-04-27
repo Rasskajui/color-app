@@ -1,17 +1,26 @@
 :root[data-theme="light"] {
     --background-color: #fff;
     --main-color: #292D32;
+    --secondary-color: #fff;
 
     --theme-switcher-background: url(../images/icons/moon.svg) 30px 30px no-repeat #70748D;
     --theme-switcher-color: #fff;
+
+    --header-menu-icon: url(../images/icons/menu-icon.svg) no-repeat;
+    --header-cross-icon: url(../images/icons/cross.svg) no-repeat;
   }
   
 :root[data-theme="dark"] {
     --background-color: #343434;
     --main-color: #fff;
+    --secondary-color: #515151;
 
     --theme-switcher-background: url(../images/icons/sun.svg) 30px 30px no-repeat #FFDA55;
     --theme-switcher-color: #343434;
+
+    --header-menu-icon: url(../images/icons/menu-icon_dark.svg) no-repeat;
+    --header-cross-icon: url(../images/icons/cross_dark.svg) no-repeat;
+
 }
 
 body {
