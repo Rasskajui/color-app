@@ -1,0 +1,37 @@
+.palette {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 100px auto 60px;
+}
+
+.palette__colors {
+    list-style-type: none;
+    margin: 0 55px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 12px;
+    max-width: 1280px;
+    position: relative;
+}
+
+.palette__button {
+    background: var(--add-btn-icon) no-repeat;
+    background-size: contain;
+    width: 36px;
+    height: 36px;
+    border: none;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    transition: all .1s ease-in;
+    position: absolute;
+    right: -53px;
+    top: calc(0.5 * 303px - 18px);
+}
+
+.palette__button:hover {
+    scale: 1.1;
+}

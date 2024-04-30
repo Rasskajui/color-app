@@ -1,0 +1,32 @@
+.palette__color-item {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    justify-content: center;
+    align-items: center;
+}
+
+.palette__color {
+    width: 190px;
+    height: 303px;
+    border-radius: 12px;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.palette__color:hover > .palette__color-btns-wrapper {
+    opacity: 1;
+}
+
+.palette__color-btns-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 48px);
+    grid-template-rows: repeat(2, 44px);
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+    transition: all .15s ease-in-out;
+    opacity: 0;
+}

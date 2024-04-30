@@ -13,6 +13,7 @@
     right: 55px;
     bottom: 60px;
     text-align: left;
+    z-index: 1;
 }
 
 .theme-switcher__text {
