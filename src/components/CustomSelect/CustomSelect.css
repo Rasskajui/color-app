@@ -1,22 +1,30 @@
 .select {
+    font-size: 14px;
+    font-weight: 500;
+    width: 170px;
+    min-height: 137px;
+}
+
+.select_open {
     color: var(--main-color);
     background-color: var(--secondary-color);
     box-shadow: 0 0 25px rgba(0, 0, 0, .15);
     border-radius: 7px;
-    font-size: 14px;
-    font-weight: 500;
-    width: 170px;
 }
 
 .select-btn {
-    position: relative;
     color: var(--main-color);
-    background-color: var(--secondary-color);
+    box-shadow: 0 0 25px rgba(0, 0, 0, .15);
     border-radius: 7px;
     padding: 12px 16px;
-    background: var(--arrow-down-icon) no-repeat;
+    background: var(--arrow-down-icon) no-repeat var(--secondary-color);
     background-position: right;
     cursor: pointer;
+}
+
+.select-btn_open {
+    box-shadow: none;
+    background-image: var(--arrow-up-icon);
 }
 
 .select__options {

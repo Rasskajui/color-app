@@ -10,6 +10,7 @@
     --header-cross-icon: url(../images/icons/cross.svg) no-repeat;
 
     --arrow-down-icon: url(../images/icons/arrow-down.svg);
+    --arrow-up-icon: url(../images/icons/arrow-up.svg);
     --add-btn-icon: url(../images/icons/add-btn.svg);
 
   }
@@ -26,6 +27,7 @@
     --header-cross-icon: url(../images/icons/cross_dark.svg) no-repeat;
 
     --arrow-down-icon: url(../images/icons/arrow-down_dark.svg);
+    --arrow-up-icon: url(../images/icons/arrow-up_dark.svg);
     --add-btn-icon: url(../images/icons/add-btn_dark.svg);
 
 }

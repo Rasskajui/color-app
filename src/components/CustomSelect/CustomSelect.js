@@ -6,8 +6,8 @@ function CustomSelect({selectedOption, setSelectedOption, options}) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-            <div className="select">
-                <div className="select-btn" onClick={() => {setIsOpen(!isOpen)}}>
+            <div className={`select ${isOpen ? 'select_open' : ''}`}>
+                <div className={`select-btn ${isOpen ? 'select-btn_open' : ''}`} onClick={() => {setIsOpen(!isOpen)}}>
                     {selectedOption}
                 </div>
                 {isOpen && <ul className="select__options">
