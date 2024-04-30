@@ -7,7 +7,7 @@ function Palette(props) {
     const [mainColor, setMainColor] = useState([Math.floor(Math.random() * 360), 60, 60]);
     const palette = generateMonochromaticPalette(mainColor, 6);
 
-    const [colorsCount, setColorsCount] = useState(1);
+    const [colorsCount, setColorsCount] = useState(3);
     const [colors, setColors] = useState(palette.slice(0, colorsCount));
 
     return (

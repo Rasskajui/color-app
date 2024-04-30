@@ -4,12 +4,25 @@
     border: none;
     border-radius: 7px;
     cursor: pointer;
-    background: #fff;
+    background: var(--secondary-color) no-repeat center;
     margin: 0;
     padding: 0;
     transition: all .1s ease-in;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .palette__color-btn:hover {
     opacity: .8;
+}
+
+.palette__color-btn-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+}
+
+.palette__color-btn-icon {
+    filter: var(--icon-filter);
 }
