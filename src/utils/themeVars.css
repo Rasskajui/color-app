@@ -8,6 +8,10 @@
 
     --header-menu-icon: url(../images/icons/menu-icon.svg) no-repeat;
     --header-cross-icon: url(../images/icons/cross.svg) no-repeat;
+
+    --arrow-down-icon: url(../images/icons/arrow-down.svg);
+    --add-btn-icon: url(../images/icons/add-btn.svg);
+
   }
   
 :root[data-theme="dark"] {
@@ -20,6 +24,9 @@
 
     --header-menu-icon: url(../images/icons/menu-icon_dark.svg) no-repeat;
     --header-cross-icon: url(../images/icons/cross_dark.svg) no-repeat;
+
+    --arrow-down-icon: url(../images/icons/arrow-down_dark.svg);
+    --add-btn-icon: url(../images/icons/add-btn_dark.svg);
 
 }
 
