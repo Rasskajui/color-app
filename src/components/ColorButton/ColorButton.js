@@ -13,9 +13,12 @@ function ColorButton(props) {
 
     return (
         <button 
-            className='palette__color-btn'
+            className={`palette__color-btn ${props.type === 'move' ? 'palette__color-btn_accent' : '' }`}
             type='button'
             onClick={props.handleButtonClick}
+            style={{
+                gridArea: props.type
+            }}
         >
             {
                 props.type === 'pick' && 

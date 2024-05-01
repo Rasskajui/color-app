@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import './CustomSelect.css';
 
-function CustomSelect({selectedOption, setSelectedOption, options}) {
+function CustomSelect({selectedOption, setSelectedOption, options, className}) {
 
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-            <div className={`select ${isOpen ? 'select_open' : ''}`}>
+            <div className={`select ${className} ${isOpen ? 'select_open' : ''}`}>
                 <div className={`select-btn ${isOpen ? 'select-btn_open' : ''}`} onClick={() => {setIsOpen(!isOpen)}}>
                     {selectedOption}
                 </div>

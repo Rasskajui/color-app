@@ -14,9 +14,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative; 
 }
 
-.palette__color:hover > .palette__color-btns-wrapper {
+.palette__color:hover > .palette__color-btns-wrapper > .palette__color-btn {
     opacity: 1;
 }
 
@@ -24,9 +25,45 @@
     display: grid;
     grid-template-columns: repeat(2, 48px);
     grid-template-rows: repeat(2, 44px);
+    grid-template-areas:
+            "pick delete"
+            "move lock";
     gap: 12px;
     justify-content: center;
     align-items: center;
     transition: all .15s ease-in-out;
-    opacity: 0;
+}
+
+.palette__format-select {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: -55%;
+}
+
+@media screen and (max-width: 1200px) {
+    .palette__color-item {
+        width: 100%;
+    }
+
+    .palette__color {
+        padding: 36px 16px;
+        width: 100%;
+    }
+
+    .palette__color-btns-wrapper {
+        grid-template-columns: 170px repeat(3, 1fr);    
+        grid-template-rows: repeat(2, 44px);
+        grid-template-areas:
+            "move select select select"
+            "move pick delete lock"
+    }
+
+    .palette__format-select {
+        position: static;
+        grid-area: select;
+        transform: translateY(50px);
+    }
 }

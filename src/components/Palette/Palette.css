@@ -35,3 +35,31 @@
 .palette__button:hover {
     scale: 1.1;
 }
+
+@media screen and (max-width: 1200px) {
+
+    .palette {
+        margin: 0 15px 106px;
+        flex-direction: column;
+    }
+
+    .palette__colors {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .palette__button {
+        position: static;
+        width: 100%;
+        background: var(--plus-icon) center no-repeat;
+        background-size: contain;
+        border: 1.5px solid var(--main-color);
+        border-radius: 7px;
+        min-height: 44px;
+    }
+
+    .palette__button:hover {
+        scale: 1;
+        background-size: 44px 44px;
+    }
+}

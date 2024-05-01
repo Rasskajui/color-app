@@ -11,6 +11,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 0 25px rgba(0, 0, 0, .15);
+    opacity: 0;
+    z-index: 1;
 }
 
 .palette__color-btn:hover {
@@ -25,4 +28,18 @@
 
 .palette__color-btn-icon {
     filter: var(--icon-filter);
+}
+
+@media screen and (max-width: 1200px) {
+    .palette__color-btn {
+        opacity: 1;
+    }
+
+    .palette__color-btn_accent {
+        justify-self: center;
+        opacity: .7;
+        transform: rotate(90deg);
+        width: 44px;
+        height: 48px;
+    }
 }

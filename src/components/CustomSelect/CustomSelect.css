@@ -2,7 +2,8 @@
     font-size: 14px;
     font-weight: 500;
     width: 170px;
-    min-height: 137px;
+    min-height: 152px;
+    line-height: 20px;
 }
 
 .select_open {
@@ -10,6 +11,7 @@
     background-color: var(--secondary-color);
     box-shadow: 0 0 25px rgba(0, 0, 0, .15);
     border-radius: 7px;
+    z-index: 2;
 }
 
 .select-btn {

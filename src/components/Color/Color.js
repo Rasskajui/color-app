@@ -56,13 +56,14 @@ function Color(props) {
                         type="move"
                         handleButtonClick={handleMoveColor}
                     />
+                    <CustomSelect 
+                        className={'palette__format-select'}
+                        options={options}
+                        selectedOption={selectedOption}
+                        setSelectedOption={setSelectedOption}
+                    />
                 </div>
             </div>
-            <CustomSelect 
-                options={options}
-                selectedOption={selectedOption}
-                setSelectedOption={setSelectedOption}
-            />
         </li>
     );
 } 
