@@ -13,7 +13,7 @@
     right: 55px;
     bottom: 60px;
     text-align: left;
-    z-index: 1;
+    z-index: 10000;
 }
 
 .theme-switcher__text {
@@ -34,7 +34,7 @@
 @media screen and (max-width: 760px) {
     .theme-switcher {
         right: 15px;
-        bottom: 5px;
+        bottom: 100px;
         opacity: .9;
     }
 

@@ -1,0 +1,98 @@
+.button-bar {
+    display: flex;
+    margin: 40px 55px;
+    gap: 12px;
+}
+
+.button-bar__select {
+    min-height: 0;
+}
+
+.button-bar__select-check {
+    display: none;
+}
+
+.button-bar__select-btn {
+    display: none;       
+}
+
+.button-bar__selects {
+    display: flex;
+    gap: 12px;
+}
+
+@media screen and (max-width: 1200px) {
+    .button-bar {
+        margin: 0;
+        width: 100%;
+        position: fixed;
+        padding: 24px 15px;
+        bottom: 0;
+        z-index: 100000;
+        background-color: var(--secondary-color);
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .button-bar__select-btn {
+        display: block;
+        max-height: 44px;
+        order: 2;
+    }
+    .button-bar__select-check:checked ~ .button-bar__select-btn {
+        background-color: #f7c40b;
+    }
+
+    .button-bar__select-check:checked ~ .button-bar__selects {
+        display: block;
+    }
+
+    .button-bar__selects {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .button-bar__select {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .button-bar__button {
+        padding: 10px 19px;
+    }
+}
+
+@media screen and (max-width: 615px) { 
+
+    .button-bar__button {
+        text-indent: -99999px;
+        gap: 0;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .button-bar__button_visible-text {
+        text-indent: 0px;
+        gap: 12px;
+        order: 1;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .button-bar__button {
+        font-size: 14px;
+    }
+
+    .button-bar__btn-icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .button-bar__select-btn {
+        height: 36px;
+    }
+}
