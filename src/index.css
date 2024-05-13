@@ -4,3 +4,5 @@
 
 @import url(./utils/themeVars.css);
 @import url(./blocks/logo/logo.css);
+@import url(./blocks/button/button.css);
+@import url(./blocks/button/_accent/button_accent.css);

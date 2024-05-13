@@ -25,21 +25,6 @@
 
 .header__nav-btn {
     text-decoration: none;
-    background: #FFDA55;
-    color: #292D32;
-    padding: 12px 24px; 
-    border-radius: 7px;
-    font-weight: 500;
-    transition: all .2s ease-in;
-}
-
-.header__nav-btn:hover {
-    opacity: .8;
-}
-
-.header__nav-btn_accent {
-    color: #fff;
-    background: #5F668F;
 }
 
 .header__menu-check {

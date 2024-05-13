@@ -1,0 +1,9 @@
+.button_accent {
+    background-color: #5F668F;
+    color: #fff;
+}
+
+
+.button_accent:hover {
+    background-color: #505882;
+}

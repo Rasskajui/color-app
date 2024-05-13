@@ -20,10 +20,10 @@ function Header(props) {
             <nav className='header__nav'>
                 <ul className='header__nav-list'>
                     <li className='header__nav-item'>
-                        <Link to='/register' className='header__nav-btn'>Зарегистрироваться</Link>
+                        <Link to='/register' className='header__nav-btn button'>Зарегистрироваться</Link>
                     </li>
                     <li className='header__nav-item'>
-                        <Link to='/login' className='header__nav-btn header__nav-btn_accent'>Войти</Link>
+                        <Link to='/login' className='header__nav-btn button button_accent'>Войти</Link>
                     </li>
                 </ul>
             </nav>
