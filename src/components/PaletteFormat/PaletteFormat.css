@@ -1,0 +1,33 @@
+.popup__el-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.popup__el-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.popup__el-btn {
+    padding: 6px 14px;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.popup__el-text {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    max-height: 210px;
+    overflow: scroll;
+    scrollbar-width: none;
+    resize: none;
+    width: 100%;
+    background-color: var(--secondary-color);
+    color: var(--main-color);
+}
