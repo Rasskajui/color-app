@@ -63,7 +63,7 @@
     .select__options_menu {
         position: static;
         box-shadow: none;
-        border: 1px solid rgba(0, 0, 0, .15);
+        border: 1px solid var(--border-color);
         padding: 0;
     }
 }

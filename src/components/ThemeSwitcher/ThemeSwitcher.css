@@ -31,7 +31,7 @@
     transition-delay: .2s;
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 1200px) {
     .theme-switcher {
         right: 15px;
         bottom: 100px;

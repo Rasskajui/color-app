@@ -63,14 +63,14 @@
         width: 24px;
         height: 24px;
         display: block;
-        background: var(--header-menu-icon);
+        background: var(--menu-icon);
         background-size: contain;
         border: none;
         cursor: pointer;
     }
 
     .header__menu-check:checked ~ .header__menu-btn {
-        background: var(--header-cross-icon);
+        background: var(--cross-icon);
         background-size: contain;
         width: 24px;
         height: 24px;
