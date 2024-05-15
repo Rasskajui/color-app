@@ -7,14 +7,13 @@
     gap: 12px;
     align-items: center;
     position: fixed;
-    top: -100%;
-    left: 50%;
-    transform: translate(-50%);
+    right: -100%;
+    top: 100px;
     transition: all .5s ease-in;
 }
 
 .info-tooltip_opened {
-    top: 15px;
+    right: 28px;
 }
 
 .info-tooltip__icon {

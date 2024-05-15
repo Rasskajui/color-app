@@ -23,6 +23,10 @@
     margin: 0;
 }
 
+.header__nav-list_logged-in {
+    gap: 24px;
+}
+
 .header__nav-btn {
     text-decoration: none;
 }
@@ -33,6 +37,16 @@
 
 .header__menu-btn {
     display: none;
+}
+
+.header__nav-icon {
+    width: 30px;
+    height: 30px;
+    filter: var(--icon-filter);
+}
+
+.header__nav-icon:hover {
+    scale: 1.1;
 }
 
 
