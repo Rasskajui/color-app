@@ -1,0 +1,8 @@
+.form__input_error {
+    color: #FF4062;
+    border-color: #FF4062;
+}
+
+.form__input_error:focus {
+    border-color: #FF4062;
+}

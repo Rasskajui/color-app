@@ -1,0 +1,8 @@
+.form__link {
+    text-decoration: none;
+    color: var(--main-color);
+}
+
+.form__link:hover {
+    text-decoration: underline;
+}

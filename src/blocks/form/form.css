@@ -1,0 +1,23 @@
+.form {
+    max-width: 451px;
+    margin: 70px auto;
+}
+
+@media screen and (max-width: 768px) {
+    .form {
+        margin-top: 232px;
+        margin-bottom: 232px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .form {
+        margin-top: 56px;
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        max-width: 81.25%;
+    }
+}

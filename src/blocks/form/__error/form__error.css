@@ -1,0 +1,19 @@
+.form__error {
+    font-size: 12px;
+    line-height: 1.2;
+    color: #FF4062;
+    margin: 10px 0;
+    height: 0;
+    line-height: 0;
+}
+
+.form__error:last-of-type {
+    margin: 10px 0 40px;
+    line-height: 1.2;
+}
+
+@media screen and (max-width: 575px) {
+    .form__error:last-of-type {
+        margin-bottom: 157px;
+    }
+}

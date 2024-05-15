@@ -19,12 +19,12 @@ function Header(props) {
             <label htmlFor="check" className="header__menu-btn"></label>
             <nav className='header__nav'>
                 <ul className='header__nav-list'>
-                    <li className='header__nav-item'>
+                    {props.page !== 'register' && <li className='header__nav-item'>
                         <Link to='/register' className='header__nav-btn button'>Зарегистрироваться</Link>
-                    </li>
-                    <li className='header__nav-item'>
+                    </li>}
+                    {props.page !== 'login' && <li className='header__nav-item'>
                         <Link to='/login' className='header__nav-btn button button_accent'>Войти</Link>
-                    </li>
+                    </li>}
                 </ul>
             </nav>
         </header>
