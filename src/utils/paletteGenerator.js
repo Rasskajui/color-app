@@ -1,11 +1,24 @@
+import { hslToHex, hslToRgb } from "./colorFormatConverter";
+
 export const generateMonochromaticPalette = (hsl, count) => {
     const palette = [];
     const [hue, saturation, lightness] = hsl;
     const dropPercent = Math.floor((100 / count));
     for (let i = 0; i < count; i++)
         palette.push([hue, saturation, (lightness + dropPercent * i) % 100])
-    palette.sort((a, b) => b[2] - a[2])
-    return palette;
+    palette.sort((a, b) => b[2] - a[2]);
+    return palette.map((color) => {
+        return {
+            'HSL': {
+                h: color[0],
+                s: color[1],
+                l: color[2],
+                code: `hsl(${color[0]}, ${color[1]}, ${color[2]})`
+            },
+            'HEX': hslToHex(...color),
+            'RGB': hslToRgb(...color),
+        }
+    });
 }
 
 export const generateAnalogousPalette = (hsl, count) => {
@@ -13,8 +26,19 @@ export const generateAnalogousPalette = (hsl, count) => {
     const [hue, saturation, lightness] = hsl;
     for (let i = 0; i < count; i++)
         palette.push([(hue + 15 * i) % 360, saturation, lightness])
-    palette.sort((a, b) => b[0] - a[0])
-    return palette;
+    palette.sort((a, b) => b[0] - a[0]);
+    return palette.map((color) => {
+        return {
+            'HSL': {
+                h: color[0],
+                s: color[1],
+                l: color[2],
+                code: `hsl(${color[0]}, ${color[1]}, ${color[2]})`
+            },
+            'HEX': hslToHex(...color),
+            'RGB': hslToRgb(...color),
+        }
+    });
 }
 
 export const generateCompoundPalette = (hsl, count) => {
@@ -28,8 +52,19 @@ export const generateCompoundPalette = (hsl, count) => {
             hue = (hue + 30) % 360
         palette.push([hue, saturation, lightness])
     }
-    palette.sort((a, b) => b[0] - a[0])
-    return palette;
+    palette.sort((a, b) => b[0] - a[0]);
+    return palette.map((color) => {
+        return {
+            'HSL': {
+                h: color[0],
+                s: color[1],
+                l: color[2],
+                code: `hsl(${color[0]}, ${color[1]}, ${color[2]})`
+            },
+            'HEX': hslToHex(...color),
+            'RGB': hslToRgb(...color),
+        }
+    });
 }
 
 export const generateTriadicPalette = (hsl, count) => {
@@ -43,9 +78,20 @@ export const generateTriadicPalette = (hsl, count) => {
             hue = (hue + 30) % 360
         palette.push([hue, saturation, lightness])
     }
-    return palette;
+    return palette.map((color) => {
+        return {
+            'HSL': {
+                h: color[0],
+                s: color[1],
+                l: color[2],
+                code: `hsl(${color[0]}, ${color[1]}, ${color[2]})`
+            },
+            'HEX': hslToHex(...color),
+            'RGB': hslToRgb(...color),
+        }
+    });
 }
 
 export const generateRandomHexColor = () => {
-    return '#' + Math.floor(Math.random()*16777215).toString(16)
+    return '#' + Math.floor(Math.random()*16777215).toString(16);
 } 

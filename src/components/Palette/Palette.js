@@ -10,12 +10,18 @@ function Palette(props) {
     const [colorsCount, setColorsCount] = useState(3);
     const [colors, setColors] = useState(palette.slice(0, colorsCount));
 
+    const handleDeleteColor = (inx) => {
+        setColors((prevState) => prevState.filter((e, i) => i !== inx ))
+    }
+
     return (
         <div className="palette">
             <ul className="palette__colors">
-                {colors.map((color) => <Color
+                {colors.map((color, colorInx) => <Color
                     key={color}
                     color={color}
+                    colors={colors}
+                    handleDeleteColor={() => handleDeleteColor(colorInx)}
                 />)}
                 {colorsCount < 6 && <button 
                     className="palette__button" 

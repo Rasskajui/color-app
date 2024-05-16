@@ -2,6 +2,7 @@ import './ColorButton.css';
 import Delete from '../../images/icons/delete.svg';
 import Lock from '../../images/icons/lock.svg';
 import Move from '../../images/icons/move.svg';
+import { SketchPicker } from 'react-color';
 
 function ColorButton(props) {
 
@@ -13,7 +14,7 @@ function ColorButton(props) {
 
     return (
         <button 
-            className={`palette__color-btn ${props.type === 'move' ? 'palette__color-btn_accent' : '' }`}
+            className={`palette__color-btn ${props.type === 'move' ? 'palette__color-btn_accent' : '' } ${props.type === 'pick' ? 'palette__color-btn_pick' : '' }`}
             type='button'
             onClick={props.handleButtonClick}
             style={{
@@ -22,12 +23,23 @@ function ColorButton(props) {
         >
             {
                 props.type === 'pick' && 
+                <>
                 <div 
                     className='palette__color-btn-circle' 
                     style={{
-                        backgroundColor: `hsl(${props.color[0]}, ${props.color[1]}%, ${props.color[2]}%)`
+                        backgroundColor: props.color
                     }}
-                ></div>
+                >
+                </div>
+                <div className={`palette__color-pick ${ props.isPickerOpen ? '' : 'palette__color-pick_hidden'}`}>
+                    <SketchPicker
+                        color={props.color}
+                        onChange={(color) => {
+                            props.setColor(color.hex);
+                        }}
+                    />
+                </div>
+                </>
             }
             {
                 props.type !== 'pick' && 

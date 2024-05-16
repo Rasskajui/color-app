@@ -1,4 +1,6 @@
 .palette__color-btn {
+    position: relative;
+    z-index: 10;
     width: 48px;
     height: 44px;
     border: none;
@@ -13,11 +15,14 @@
     align-items: center;
     box-shadow: 0 0 25px rgba(0, 0, 0, .15);
     opacity: 0;
-    z-index: 1;
 }
 
 .palette__color-btn:hover {
     opacity: .8;
+}
+
+.palette__color-btn_pick {
+    z-index: 100;
 }
 
 .palette__color-btn-circle {
@@ -28,6 +33,17 @@
 
 .palette__color-btn-icon {
     filter: var(--icon-filter);
+}
+
+.palette__color-pick {
+    position: absolute;
+    top: -100%;
+    left: -470%;
+    display: block;
+}
+
+.palette__color-pick_hidden {
+    display: none;
 }
 
 @media screen and (max-width: 1200px) {

@@ -2,27 +2,18 @@ import './Color.css';
 import ColorButton from '../ColorButton/ColorButton';
 import { useState } from 'react';
 import CustomSelect from '../CustomSelect/CustomSelect';
-import { hslToHex, hslToRgb } from '../../utils/colorFormatConverter';
 
 function Color(props) {
 
-    const colorHSL = `hsl(${props.color[0]}, ${props.color[1]}%, ${props.color[2]}%)`;
+    const [color, setColor] = useState(props.color['HEX'].code);
+    const [isPickerOpen, setIsPickerOpen] = useState(false);
 
     const options = [
-        hslToHex(...props.color), 
-        colorHSL, 
-        hslToRgb(props.color[0], props.color[1] / 100, props.color[2] / 100)
+        props.color['HEX'].code,  
+        props.color['RGB'].code,  
+        props.color['HSL'].code,  
     ];
-
     const [selectedOption, setSelectedOption] = useState(options[0]);
-
-    const handlePcikColor = () => {
-        
-    }
-
-    const handleDeleteColor = () => {
-        
-    }
 
     const handleLockColor = () => {
         
@@ -36,17 +27,21 @@ function Color(props) {
         <li className="palette__color-item">
             <div 
                 className="palette__color" 
-                style={{ background: colorHSL }}
+                style={{ background: color }}
             >
                 <div className="palette__color-btns-wrapper">
                     <ColorButton 
                         type="pick"
-                        color={props.color}
-                        handleButtonClick={handlePcikColor}
+                        color={color}
+                        setColor={setColor}
+                        isPickerOpen={isPickerOpen}
+                        handleButtonClick={() => {
+                            setIsPickerOpen(!isPickerOpen)
+                        }}
                     />
                     <ColorButton 
-                        type="delete"
-                        handleButtonClick={handleDeleteColor}
+                        type="delete"   
+                        handleButtonClick={props.handleDeleteColor}
                     />
                     <ColorButton 
                         type="lock"
