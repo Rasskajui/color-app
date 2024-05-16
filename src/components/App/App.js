@@ -54,9 +54,6 @@ function App() {
             return Promise.reject(`Ошибка ${err.status}`);
           })
       })
-      .catch((err) => {
-        return Promise.reject(`Ошибка ${err.status}`);
-      })
   }
 
   function handleExit() {
@@ -114,7 +111,7 @@ function App() {
           loggedIn?
           <CurrentUserContext.Provider value={currentUser}>
             <Header page='profile' loggedIn={loggedIn}/>
-            <Profile onExit={handleExit} />  
+            <Profile onExit={handleExit} setCurrentUser={setCurrentUser}/>  
             <ThemeSwitcher/> 
           </CurrentUserContext.Provider>
           :
