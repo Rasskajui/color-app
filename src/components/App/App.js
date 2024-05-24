@@ -10,6 +10,9 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import * as userApi from '../../utils/userApi';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
+import CurrentPaletteContext from '../../contexts/CurrentPaletteContext';
+import { generateMonochromaticPalette } from '../../utils/paletteGenerator';
+import { colorCodes, paletteTypes } from '../../utils/constants';
 
 function App() {
 
@@ -17,10 +20,28 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
 
+  const [currentPaletteSettings, setCurrentPaletteSettings] = useState({
+      code: colorCodes.hex, 
+      type: paletteTypes.monochrome,
+      palette: generateMonochromaticPalette([Math.floor(Math.random() * 360), 60, 60], 6)
+    });
+
+    const [currentPaletteColorCode, setCurrentPaletteColorCode] = useState(colorCodes.hex);
+    const [currentPaletteType, setCurrentPaletteType] = useState(paletteTypes.monochrome);
+
   useEffect(() => {
     const jwt = localStorage.getItem('token');
     if (jwt) {
-      setLoggedIn(true);
+      userApi.getUserInfo()
+      .then((user) => {
+        if (user) {
+          setCurrentUser(user);
+          setLoggedIn(true);
+        }
+      })
+      .catch(err => {
+        localStorage.clear('token');
+      });
     }
   }, []);
 
@@ -31,13 +52,13 @@ function App() {
           setCurrentUser(user);
         })
         .catch((err) => {console.log(err)})
-    }
+    } 
 
-    if (loggedIn) {
+    if (loggedIn && !currentUser) {
       setUser();
     }
 
-  }, [loggedIn]);
+  }, [loggedIn, currentUser]);
 
   function handleLogin(formValue) {
     return userApi.login(formValue)
@@ -69,8 +90,15 @@ function App() {
         <Route path="/" element={
           <>
             <Header loggedIn={loggedIn}/>
-            <ButtonBar />
-            <Palette />
+            <CurrentPaletteContext.Provider value={currentPaletteSettings}>
+              <ButtonBar 
+                setCurrentPaletteColorCode={setCurrentPaletteColorCode} 
+                currentPaletteColorCode={currentPaletteColorCode}
+                currentPaletteType={currentPaletteType}
+                setCurrentPaletteType={setCurrentPaletteType}
+              />
+              <Palette currentPaletteColorCode={currentPaletteColorCode}/>
+            </CurrentPaletteContext.Provider>
             <ThemeSwitcher />
           </>
         }/>

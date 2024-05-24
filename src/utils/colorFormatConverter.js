@@ -23,3 +23,39 @@ export const hexToRgb = (hex) => {
 }   
 
 export const hslToRgb = (h, s, l) => hexToRgb(hslToHex(h, s, l).code)
+
+export const hexToHsl = (hex) => {
+    const rgb = hexToRgb(hex);
+
+    let r = rgb.r / 255;
+    let g = rgb.g / 255;
+    let b = rgb.b / 255;
+
+    let max = Math.max(r, g, b);
+    let min = Math.min(r, g, b);
+    var h, s, l = (max + min) / 2;
+    if (max === min) {
+      h = s = 0;
+    } else {
+      var d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch(max) {
+        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: h = (b - r) / d + 2; break;
+        case b: h = (r - g) / d + 4; break;
+        default: break;
+      }
+      h /= 6;
+    }
+    
+    h = Math.round(h * 360);
+    s = Math.round(s * 100);
+    l = Math.round(l * 100);
+    
+    return {
+        code: `hsl(${h}, ${s}, ${l})`,
+        h: h,
+        s: s,
+        l: l
+    };
+}

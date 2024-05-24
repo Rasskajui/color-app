@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { generateMonochromaticPalette } from "../../utils/paletteGenerator";
 import './Palette.css';
 import Color from "../Color/Color";
+import CurrentPaletteContext from "../../contexts/CurrentPaletteContext";
+import { useContext } from "react";
 
-function Palette(props) {
-    const [mainColor, setMainColor] = useState([Math.floor(Math.random() * 360), 60, 60]);
-    const palette = generateMonochromaticPalette(mainColor, 6);
+function Palette({currentPaletteColorCode}) {
+    const currentPaletteSettings = useContext(CurrentPaletteContext);
+    const palette = currentPaletteSettings.palette;
 
     const [colorsCount, setColorsCount] = useState(3);
     const [colors, setColors] = useState(palette.slice(0, colorsCount));
@@ -17,11 +18,13 @@ function Palette(props) {
     return (
         <div className="palette">
             <ul className="palette__colors">
-                {colors.map((color, colorInx) => <Color
-                    key={color}
+                {colors.map((color, colorInx) => 
+                <Color
+                    key={colorInx}
                     color={color}
                     colors={colors}
                     handleDeleteColor={() => handleDeleteColor(colorInx)}
+                    currentPaletteColorCode={currentPaletteColorCode}
                 />)}
                 {colorsCount < 6 && <button 
                     className="palette__button" 

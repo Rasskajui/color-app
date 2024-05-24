@@ -8,21 +8,14 @@ import SelectsIcon from '../../images/icons/settings.svg';
 import Popup from '../Popup/Popup';
 import PaletteFormat from '../PaletteFormat/PaletteFormat';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
+import { colorCodes, paletteTypes } from '../../utils/constants';
 
-function ButtonBar() {
-
-    const paletteTypeOptions = [
-        'Монохромная',
-        'Аналоговая',
-        'Триада',
-        'Комплементарная'
-    ]
-
-    const colorFormatOptions = [
-        'HEX',
-        'RGB',
-        'HSL'
-    ]
+function ButtonBar({
+    currentPaletteColorCode, 
+    setCurrentPaletteColorCode, 
+    currentPaletteType, 
+    setCurrentPaletteType
+}) {
 
     const paletteFormattedToExport = [
         {
@@ -42,10 +35,20 @@ function ButtonBar() {
         },
     ]
 
-    const [selectedPaletteType, setSelectedPaletteType] = useState(paletteTypeOptions[0]);
-    const [selectedColorFormat, setSelectedColorFormat] = useState(colorFormatOptions[0]);
+    const [selectedPaletteType, setSelectedPaletteType] = useState(currentPaletteType);
+    const [selectedColorFormat, setSelectedColorFormat] = useState(currentPaletteColorCode);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+
+    const handleSelectColorCode = (option) => {
+        setSelectedColorFormat(option);
+        setCurrentPaletteColorCode(option);
+    }
+
+    const handleSelectPaletteType = (option) => {
+        setSelectedPaletteType(option);
+        setCurrentPaletteType(option);
+    }
 
     const handleOpenExportPopup = () => {
         setIsPopupOpen(!isPopupOpen);
@@ -68,16 +71,16 @@ function ButtonBar() {
             </label>
             <div className='button-bar__selects'>
                 <CustomSelect 
-                    options={paletteTypeOptions}
+                    options={Object.values(paletteTypes)}
                     selectedOption={selectedPaletteType}
-                    setSelectedOption={setSelectedPaletteType}
+                    setSelectedOption={handleSelectPaletteType}
                     className={'button-bar__select'}
                     selectType={'menu'}
                 />
                 <CustomSelect 
-                    options={colorFormatOptions}
+                    options={Object.values(colorCodes)}
                     selectedOption={selectedColorFormat}
-                    setSelectedOption={setSelectedColorFormat}
+                    setSelectedOption={handleSelectColorCode}
                     className={'button-bar__select'}
                     selectType={'menu'}
                 />
