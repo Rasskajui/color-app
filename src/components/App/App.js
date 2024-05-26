@@ -28,6 +28,7 @@ function App() {
 
     const [currentPaletteColorCode, setCurrentPaletteColorCode] = useState(colorCodes.hex);
     const [currentPaletteType, setCurrentPaletteType] = useState(paletteTypes.monochrome);
+    const [currentPalette, setCurrentPalette] = useState(generateMonochromaticPalette([Math.floor(Math.random() * 360), 60, 60], 6));
 
   useEffect(() => {
     const jwt = localStorage.getItem('token');
@@ -96,8 +97,13 @@ function App() {
                 currentPaletteColorCode={currentPaletteColorCode}
                 currentPaletteType={currentPaletteType}
                 setCurrentPaletteType={setCurrentPaletteType}
+                currentPalette={currentPalette}
               />
-              <Palette currentPaletteColorCode={currentPaletteColorCode}/>
+              <Palette 
+                currentPaletteColorCode={currentPaletteColorCode}
+                currentPalette={currentPalette}
+                setCurrentPalette={setCurrentPalette}
+              />
             </CurrentPaletteContext.Provider>
             <ThemeSwitcher />
           </>

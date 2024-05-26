@@ -14,26 +14,44 @@ function ButtonBar({
     currentPaletteColorCode, 
     setCurrentPaletteColorCode, 
     currentPaletteType, 
-    setCurrentPaletteType
+    setCurrentPaletteType,
+    currentPalette
 }) {
 
-    const paletteFormattedToExport = [
+    const formatPaletteText = (palette,  toAddReg = ', ', start = '', toAddLast = '', code = 'HEX') => {
+        return palette.reduce((prev, color, inx) => {
+            let toAdd = inx + 1 === currentPalette.length ? toAddLast : toAddReg;
+            let colorString = code === 'HEX' ? color[code].code : JSON.stringify(color);
+            return prev + colorString + toAdd;
+        }, start)
+    }
+
+    const args = {
+        list: [],
+        array: [', ', '[', ']'],
+        JSON: [',\n\t\t', '{\n\t"colors":[\n\t\t', '\n\t]\n}', 'JSON']
+    };
+
+    const [paletteFormattedToExport, setPaletteFormattedToExport] = useState([
         {
             id: 1,
             title: 'Список',
-            text: '#ffeae3, #9dacfd, #ffdad9, #ffd3d4, #ffcbd0, #ffc3cb'
+            type: 'list',
+            text: formatPaletteText(currentPalette, ...args.list),
         },
         {
             id: 2,
             title: 'Массив',
-            text: '["#ffeae3", "#9dacfd", "#ffdad9", "#ffd3d4", "#ffcbd0", "#ffc3cb"]'
+            type: 'array',
+            text: formatPaletteText(currentPalette, ...args.array),
         },
         {
             id: 3,
             title: 'JSON',
-            text: '   "name": "Палитра 1"  "colors": [    {      "color": "black",      "code": {        "rgba": [255,255,255,1],        "hex": "#000"      }...'
+            type: 'JSON',
+            text: formatPaletteText(currentPalette, ...args.JSON),
         },
-    ]
+    ]);
 
     const [selectedPaletteType, setSelectedPaletteType] = useState(currentPaletteType);
     const [selectedColorFormat, setSelectedColorFormat] = useState(currentPaletteColorCode);
@@ -51,6 +69,11 @@ function ButtonBar({
     }
 
     const handleOpenExportPopup = () => {
+        setPaletteFormattedToExport(paletteFormattedToExport.map((e) => {
+            e.id += paletteFormattedToExport.length;
+            e.text = formatPaletteText(currentPalette, ...args[e.type]); 
+            return e;
+        }));
         setIsPopupOpen(!isPopupOpen);
     }
 

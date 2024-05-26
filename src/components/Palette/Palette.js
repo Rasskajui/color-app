@@ -1,30 +1,28 @@
 import { useState } from "react";
 import './Palette.css';
 import Color from "../Color/Color";
-import CurrentPaletteContext from "../../contexts/CurrentPaletteContext";
-import { useContext } from "react";
 
-function Palette({currentPaletteColorCode}) {
-    const currentPaletteSettings = useContext(CurrentPaletteContext);
-    const palette = currentPaletteSettings.palette;
-
+function Palette({currentPaletteColorCode, currentPalette, setCurrentPalette}) {
     const [colorsCount, setColorsCount] = useState(3);
-    const [colors, setColors] = useState(palette.slice(0, colorsCount));
+    const [colors, setColors] = useState(currentPalette.slice(0, colorsCount));
 
-    const handleDeleteColor = (inx) => {
-        setColors((prevState) => prevState.filter((e, i) => i !== inx ))
+    const handleDeleteColor = (id) => {
+        setColorsCount(colorsCount - 1);
+        setColors((prevState) => prevState.filter((e) => e.id !== id ));
     }
 
     return (
         <div className="palette">
             <ul className="palette__colors">
-                {colors.map((color, colorInx) => 
+                {colors.map((color) => 
                 <Color
-                    key={colorInx}
+                    key={color.id}
                     color={color}
                     colors={colors}
-                    handleDeleteColor={() => handleDeleteColor(colorInx)}
+                    handleDeleteColor={() => handleDeleteColor(color.id)}
                     currentPaletteColorCode={currentPaletteColorCode}
+                    currentPalette={currentPalette}
+                    setCurrentPalette={setCurrentPalette}
                 />)}
                 {colorsCount < 6 && <button 
                     className="palette__button" 
@@ -32,7 +30,7 @@ function Palette({currentPaletteColorCode}) {
                     aria-label="Добавить цвет"
                     onClick={() => {
                         setColorsCount(colorsCount + 1);
-                        setColors([...colors, palette[colors.length]])
+                        setColors(currentPalette.slice(0, colorsCount + 1))
                     }}
                 ></button>}
             </ul>

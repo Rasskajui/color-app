@@ -1,3 +1,7 @@
+.palette__color-btn-wrapper {
+    position: relative;
+}
+
 .palette__color-btn {
     position: relative;
     z-index: 10;
@@ -21,10 +25,6 @@
     opacity: .8;
 }
 
-.palette__color-btn_pick {
-    z-index: 100;
-}
-
 .palette__color-btn-circle {
     width: 24px;
     height: 24px;
@@ -40,6 +40,7 @@
     top: -100%;
     left: -470%;
     display: block;
+    z-index: 100;
 }
 
 .palette__color-pick_hidden {

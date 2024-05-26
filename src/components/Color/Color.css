@@ -17,7 +17,7 @@
     position: relative; 
 }
 
-.palette__color:hover > .palette__color-btns-wrapper > .palette__color-btn {
+.palette__color:hover > .palette__color-btns-wrapper > .palette__color-btn-wrapper > .palette__color-btn {
     opacity: 1;
 }
 

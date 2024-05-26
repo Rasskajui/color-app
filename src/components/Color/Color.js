@@ -6,7 +6,7 @@ import { hexToHsl, hexToRgb } from '../../utils/colorFormatConverter';
 
 function Color(props) {
 
-    const [colorHEX, setColorHEX] = useState(props.color[props.currentPaletteColorCode].code);
+    const [colorHEX, setColorHEX] = useState(props.color['HEX'].code);
     const [isPickerOpen, setIsPickerOpen] = useState(false);
 
     const [options, setOptions] = useState({
@@ -49,9 +49,13 @@ function Color(props) {
                         color={colorHEX}
                         setColor={setColorHEX}
                         isPickerOpen={isPickerOpen}
+                        onPickerClose={() => setIsPickerOpen(false)}
                         handleButtonClick={() => {
                             setIsPickerOpen(!isPickerOpen)
                         }}
+                        currentPalette={props.currentPalette}
+                        setCurrentPalette={props.setCurrentPalette}
+                        colorId={props.color.id}
                     />
                     <ColorButton 
                         type="delete"   
