@@ -2,6 +2,7 @@ import './ColorButton.css';
 import Delete from '../../images/icons/delete.svg';
 import Lock from '../../images/icons/lock.svg';
 import Move from '../../images/icons/move.svg';
+import LockedLock from '../../images/icons/lock_locked.svg';
 import { SketchPicker } from 'react-color';
 import { useRef, useEffect } from 'react';
 import { hexToHsl } from '../../utils/colorFormatConverter';
@@ -29,7 +30,7 @@ function ColorButton(props) {
       }, [onPickerClose]);
 
     const typeIcons = {
-        'lock': Lock,
+        'lock': props.isLocked? LockedLock : Lock,
         'move': Move,
         'delete': Delete,
     }

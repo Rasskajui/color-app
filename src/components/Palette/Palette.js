@@ -11,10 +11,48 @@ function Palette({currentPaletteColorCode, currentPalette, setCurrentPalette}) {
         setColors((prevState) => prevState.filter((e) => e.id !== id ));
     }
 
+    const [currentDraggedColor, setCurrentDraggedColor] = useState(null);
+
+    function dragStartHandler(e, color) {
+        setCurrentDraggedColor(color);
+    }
+
+    function dragEndHandler(e) {
+
+    }
+    
+    function dragOverHandler(e) {
+        e.preventDefault();
+    }
+
+    function dropHandler(e, color) {
+        e.preventDefault();
+        setColors(colors.map(c => {
+            if (c.id === color.id) {
+                return {...c, order: currentDraggedColor.order}
+            }
+            if (c.id === currentDraggedColor.id) {
+                return {...c, order: color.order}
+            }
+            return c;
+        }));
+        setCurrentPalette(currentPalette.map(c => {
+            if (c.id === color.id) {
+                return {...c, order: currentDraggedColor.order}
+            }
+            if (c.id === currentDraggedColor.id) {
+                return {...c, order: color.order}
+            }
+            return c;
+        }).sort((a, b) => a.order > b.order ? 1 : -1));
+        console.log(currentPalette);
+
+    }
+
     return (
         <div className="palette">
             <ul className="palette__colors">
-                {colors.map((color) => 
+                {colors.sort((a, b) => a.order > b.order ? 1 : -1).map((color) => 
                 <Color
                     key={color.id}
                     color={color}
@@ -23,6 +61,11 @@ function Palette({currentPaletteColorCode, currentPalette, setCurrentPalette}) {
                     currentPaletteColorCode={currentPaletteColorCode}
                     currentPalette={currentPalette}
                     setCurrentPalette={setCurrentPalette}
+
+                    dragStartHandler={dragStartHandler}
+                    dragEndHandler={dragEndHandler}
+                    dragOverHandler={dragOverHandler}
+                    dropHandler={dropHandler}
                 />)}
                 {colorsCount < 6 && <button 
                     className="palette__button" 

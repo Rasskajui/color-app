@@ -4,6 +4,7 @@ const formatColor = (colorsHSL) => {
     return colorsHSL.map((color, inx) => {
         return {
             id: inx,
+            order: inx,
             'HSL': {
                 h: color[0],
                 s: color[1],

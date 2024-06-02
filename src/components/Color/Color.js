@@ -29,16 +29,28 @@ function Color(props) {
         setSelectedOption(options[selectedOptionCode]);
     }, [colorHEX, options, selectedOptionCode]);
 
-    const handleLockColor = () => {
-        
-    }
+
+    const [isDraggable, setIsDraggable] = useState(false);
+    const [isLocked, setIsLocked] = useState(false);
 
     const handleMoveColor = () => {
-        
+        setIsDraggable(true);
+    }
+
+    const handleLockColorClick = () => {
+        setIsLocked(!isLocked);
     }
 
     return (
-        <li className="palette__color-item">
+        <li 
+            className="palette__color-item"
+            draggable={isDraggable}
+            onDragStart={(e) => props.dragStartHandler(e, props.color)}
+            onDragLeave={(e) => props.dragEndHandler(e)}
+            onDragEnd={(e) => props.dragEndHandler(e)}
+            onDragOver={(e) => props.dragOverHandler(e)}
+            onDrop={(e) => props.dropHandler(e, props.color)}
+        >
             <div 
                 className="palette__color" 
                 style={{ background: colorHEX }}
@@ -63,7 +75,8 @@ function Color(props) {
                     />
                     <ColorButton 
                         type="lock"
-                        handleButtonClick={handleLockColor}
+                        handleButtonClick={handleLockColorClick}
+                        isLocked={isLocked}
                     />
                     <ColorButton 
                         type="move"
