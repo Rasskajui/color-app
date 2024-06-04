@@ -79,7 +79,7 @@ function ColorButton(props) {
                 onChangeComplete={(color) => {
                     props.setCurrentPalette(props.currentPalette.map((e) => 
                         e.id === props.colorId ? {
-                            id: e.id,
+                            ...e,
                             'HSL': hexToHsl(color.hex),
                             'HEX': {code: color.hex},
                             'RGB': {

@@ -9,13 +9,18 @@ import Popup from '../Popup/Popup';
 import PaletteFormat from '../PaletteFormat/PaletteFormat';
 import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import { colorCodes, paletteTypes } from '../../utils/constants';
+import * as paletteApi from '../../utils/paletteApi';
 
 function ButtonBar({
     currentPaletteColorCode, 
     setCurrentPaletteColorCode, 
     currentPaletteType, 
     setCurrentPaletteType,
-    currentPalette
+    currentPalette,
+    loggedIn,
+    savedPalettes,
+    setSavedPalettes,
+    handleGeneratePalette
 }) {
 
     const formatPaletteText = (palette,  toAddReg = ', ', start = '', toAddLast = '', code = 'HEX') => {
@@ -57,6 +62,7 @@ function ButtonBar({
     const [selectedColorFormat, setSelectedColorFormat] = useState(currentPaletteColorCode);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+    const [infoTooltipText, setInfoTooltipText] = useState('');
 
     const handleSelectColorCode = (option) => {
         setSelectedColorFormat(option);
@@ -81,9 +87,52 @@ function ButtonBar({
         setIsPopupOpen(false);
     }
 
-    const showInfoTooltip = () => {
+    const showInfoTooltip = (text) => {
+        setInfoTooltipText(text);
         setIsInfoTooltipOpen(true);
         setTimeout(() => setIsInfoTooltipOpen(false), 2000);
+    }
+
+
+    const [isSavePopupOpen, setIsSavePopupOpen] = useState(false);
+    const [paletteNameValue, setPaletteNameValue] = useState('');
+
+    function handleOpenSavePopup() {
+        loggedIn 
+        ? setIsSavePopupOpen(true)
+        : showInfoTooltip('Необходима авторизация')
+    }
+
+    function handleCloseSavePopup() {
+        setIsSavePopupOpen(false);
+    }
+
+    function handleSavePalette(e) {
+        e.preventDefault();
+        paletteApi.savePalette({
+            name: paletteNameValue,
+            colors: currentPalette.map(c => JSON.stringify(c)),
+        })
+        .then((res) => {
+            showInfoTooltip('Палитра сохранена')
+            handleCloseSavePopup();
+            setSavedPalettes([...savedPalettes, res]);
+            console.log(savedPalettes);
+        })
+        .catch(err => {
+            showInfoTooltip(err)
+        })
+    }
+
+    function handlePaletteNameChange(e) {
+        setPaletteNameValue(e.target.value);
+        checkPaletteNameErrors();
+    }
+
+    const [isSavePaletteBtnDisabled, setIsSavePaletteBtnDisabled] = useState(true);
+
+    const checkPaletteNameErrors = () => {
+        setIsSavePaletteBtnDisabled(!(paletteNameValue.length >= 2 && paletteNameValue.length <= 30))
     }
 
     return (
@@ -108,7 +157,10 @@ function ButtonBar({
                     selectType={'menu'}
                 />
             </div>
-            <button className='button-bar__button button button_accent'>
+            <button 
+                className='button-bar__button button button_accent' 
+                onClick={() => handleGeneratePalette([Math.random() * 360, 60, 60])}
+            >
                 <img src={GenerateIcon} alt="" className='button-bar__btn-icon'/>
                 Сгенерировать&nbsp;палитру
             </button>
@@ -119,7 +171,7 @@ function ButtonBar({
                 <img src={ExportIcon} alt="" className='button-bar__btn-icon'/>
                 Экспорт
             </button>
-            <button className='button-bar__button button'>
+            <button className='button-bar__button button' onClick={handleOpenSavePopup}>
                 <img src={HeartIcon} alt="" className='button-bar__btn-icon'/>
             </button>
 
@@ -134,7 +186,7 @@ function ButtonBar({
                                 key={el.id}
                                 text={el.text}
                                 title={el.title}
-                                showMessage={showInfoTooltip}
+                                showMessage={() =>  showInfoTooltip('Палитра скопирована')}
                             />
                         )}
                     </ul>
@@ -142,8 +194,32 @@ function ButtonBar({
             />
 
             <InfoTooltip 
-                text={'Палитра скопирована'}
+                text={infoTooltipText}
                 isOpened={isInfoTooltipOpen}
+            />
+
+            <Popup
+                isOpen={isSavePopupOpen}
+                onClose={handleCloseSavePopup}
+                title={'Сохранить палитру'}
+                children={(
+                    <form className='popup__form' onSubmit={handleSavePalette}>
+                        <input 
+                            className='form__input' 
+                            placeholder='Введите название палитры'
+                            onChange={handlePaletteNameChange}
+                            value={paletteNameValue}
+                            minLength="2" 
+                            maxLength="30" 
+                            required
+                        />
+                        <button 
+                            type='submit' 
+                            className={`form__submit-btn ${isSavePaletteBtnDisabled ? 'form__submit-btn_disabled' : ''}`}
+                            disabled={isSavePaletteBtnDisabled}
+                        >Сохранить</button>
+                    </form>
+                )}
             />
         </div>
     );

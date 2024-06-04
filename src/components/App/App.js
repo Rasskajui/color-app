@@ -10,9 +10,10 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import * as userApi from '../../utils/userApi';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
-import CurrentPaletteContext from '../../contexts/CurrentPaletteContext';
 import { generateMonochromaticPalette } from '../../utils/paletteGenerator';
-import { colorCodes, paletteTypes } from '../../utils/constants';
+import { colorCodes, paletteTypes, paletteGenerators } from '../../utils/constants';
+import Favourites from '../Favourites/Favourites';
+import * as paletteApi from '../../utils/paletteApi';
 
 function App() {
 
@@ -20,15 +21,25 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const [currentPaletteSettings, setCurrentPaletteSettings] = useState({
-      code: colorCodes.hex, 
-      type: paletteTypes.monochrome,
-      palette: generateMonochromaticPalette([Math.floor(Math.random() * 360), 60, 60], 6)
-    });
+  // const [currentPaletteSettings, setCurrentPaletteSettings] = useState({
+  //     code: colorCodes.hex, 
+  //     type: paletteTypes.monochrome,
+  //     palette: generateMonochromaticPalette([Math.floor(Math.random() * 360), 60, 60], 6)
+  //   });
 
     const [currentPaletteColorCode, setCurrentPaletteColorCode] = useState(colorCodes.hex);
     const [currentPaletteType, setCurrentPaletteType] = useState(paletteTypes.monochrome);
     const [currentPalette, setCurrentPalette] = useState(generateMonochromaticPalette([Math.floor(Math.random() * 360), 60, 60], 6));
+    const [colorsCount, setColorsCount] = useState(3);
+    const [colors, setColors] = useState(currentPalette.slice(0, colorsCount));
+
+    function handleGeneratePalette(randomColor) {
+      const newPalette = paletteGenerators[currentPaletteType](randomColor, 6);
+      setCurrentPalette(newPalette);
+      setColors(newPalette.slice(0, colorsCount));
+    }
+
+    const [savedPalettes, setSavedPalettes] = useState([]);
 
   useEffect(() => {
     const jwt = localStorage.getItem('token');
@@ -40,6 +51,15 @@ function App() {
           setLoggedIn(true);
         }
       })
+      .then(() => {
+        paletteApi.getUserPalettes()
+        .then((data) => {
+          setSavedPalettes(data);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      })
       .catch(err => {
         localStorage.clear('token');
       });
@@ -50,16 +70,26 @@ function App() {
     async function setUser() {
       await userApi.getUserInfo()
         .then((user) => {
+          console.log(user);
           setCurrentUser(user);
         })
         .catch((err) => {console.log(err)})
     } 
 
-    if (loggedIn && !currentUser) {
-      setUser();
+    async function setPalettes() {
+      await paletteApi.getUserPalettes()
+      .then((data) => {
+        setSavedPalettes(data);
+      })
+      .catch((err) => {console.log(err)})
     }
 
-  }, [loggedIn, currentUser]);
+    if (loggedIn) {
+      setUser();
+      setPalettes();
+    }
+
+  }, [loggedIn]);
 
   function handleLogin(formValue) {
     return userApi.login(formValue)
@@ -91,20 +121,26 @@ function App() {
         <Route path="/" element={
           <>
             <Header loggedIn={loggedIn}/>
-            <CurrentPaletteContext.Provider value={currentPaletteSettings}>
               <ButtonBar 
                 setCurrentPaletteColorCode={setCurrentPaletteColorCode} 
                 currentPaletteColorCode={currentPaletteColorCode}
                 currentPaletteType={currentPaletteType}
                 setCurrentPaletteType={setCurrentPaletteType}
                 currentPalette={currentPalette}
+                loggedIn={loggedIn}
+                savedPalettes={savedPalettes}
+                setSavedPalettes={setSavedPalettes}
+                handleGeneratePalette={handleGeneratePalette}
               />
               <Palette 
                 currentPaletteColorCode={currentPaletteColorCode}
                 currentPalette={currentPalette}
                 setCurrentPalette={setCurrentPalette}
+                colorsCount={colorsCount}
+                setColorsCount={setColorsCount}
+                colors={colors}
+                setColors={setColors}
               />
-            </CurrentPaletteContext.Provider>
             <ThemeSwitcher />
           </>
         }/>
@@ -135,6 +171,14 @@ function App() {
           loggedIn?
           <CurrentUserContext.Provider value={currentUser}>
             <Header page='favourites' loggedIn={loggedIn}/>
+            <Favourites 
+              savedPalettes={savedPalettes} 
+              setSavedPalettes={setSavedPalettes}
+              setCurrentPaletteColorCode={setCurrentPaletteColorCode} 
+              currentPaletteColorCode={currentPaletteColorCode}
+              currentPaletteType={currentPaletteType}
+              setCurrentPaletteType={setCurrentPaletteType}
+            />
             <ThemeSwitcher/> 
           </CurrentUserContext.Provider>
           :

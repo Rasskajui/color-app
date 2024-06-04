@@ -1,6 +1,6 @@
 .button-bar {
     display: flex;
-    margin: 40px 55px;
+    margin: 40px auto;
     gap: 12px;
 }
 
@@ -19,6 +19,12 @@
 .button-bar__selects {
     display: flex;
     gap: 12px;
+}
+
+.popup__form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 @media screen and (max-width: 1200px) {

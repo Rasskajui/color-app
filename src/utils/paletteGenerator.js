@@ -3,7 +3,7 @@ import { hslToHex, hslToRgb } from "./colorFormatConverter";
 const formatColor = (colorsHSL) => {
     return colorsHSL.map((color, inx) => {
         return {
-            id: inx,
+            id: inx + Math.random() * 10000,
             order: inx,
             'HSL': {
                 h: color[0],

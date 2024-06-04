@@ -2,9 +2,15 @@ import { useState } from "react";
 import './Palette.css';
 import Color from "../Color/Color";
 
-function Palette({currentPaletteColorCode, currentPalette, setCurrentPalette}) {
-    const [colorsCount, setColorsCount] = useState(3);
-    const [colors, setColors] = useState(currentPalette.slice(0, colorsCount));
+function Palette({
+    currentPaletteColorCode, 
+    currentPalette, 
+    setCurrentPalette, 
+    colorsCount, 
+    setColorsCount,
+    colors,
+    setColors,
+}) {
 
     const handleDeleteColor = (id) => {
         setColorsCount(colorsCount - 1);
@@ -45,8 +51,6 @@ function Palette({currentPaletteColorCode, currentPalette, setCurrentPalette}) {
             }
             return c;
         }).sort((a, b) => a.order > b.order ? 1 : -1));
-        console.log(currentPalette);
-
     }
 
     return (
@@ -73,7 +77,10 @@ function Palette({currentPaletteColorCode, currentPalette, setCurrentPalette}) {
                     aria-label="Добавить цвет"
                     onClick={() => {
                         setColorsCount(colorsCount + 1);
-                        setColors(currentPalette.slice(0, colorsCount + 1))
+                        const ids = colors.map((c) => c.id);
+                        let nextColor = currentPalette.find((c) => !ids.includes(c.id));
+                        nextColor.order = colorsCount;
+                        setColors([...colors, nextColor])
                     }}
                 ></button>}
             </ul>
